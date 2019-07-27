@@ -5,12 +5,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableAsync;
 
-@SpringBootApplication
+@SpringBootApplication//(exclude = { SecurityAutoConfiguration.class })
 @EnableAsync
 @ComponentScan("com.api")
 public class ApiUserControllerApplication {
-	public static void main(String[] args) {
-		
+	public static void main(String[] args) {		
 		SpringApplication.run(ApiUserControllerApplication.class, args);
 	}
 }

@@ -26,7 +26,8 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
-	public List<User> get() throws IOException, InterruptedException, ExecutionException, UserNotFoundException {
+	public List<User> get() throws IOException, InterruptedException, 
+			ExecutionException, UserNotFoundException {
 		Future<List<User>> futureUser = jsonPlaceholderService.getUsers();
 		List<User> users = futureUser.get();
 		users.stream().filter(Objects::nonNull).forEach(user -> {
