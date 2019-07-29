@@ -11,11 +11,9 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.Future;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.scheduling.annotation.AsyncResult;
 
 import com.api.controller.AdminController;
 import com.api.domain.Post;
@@ -40,19 +38,19 @@ public class AdminControllerTest {
 	@Test
 	public void testGet() throws Exception {
 		User user = createUser(USER_ID, "MS Dhoni", "dhoni@gmail.com");
-		Future<List<User>> futureUser = new AsyncResult<>(new ArrayList<>());
-		futureUser.get().add(user);
-		when(jsonPlaceholderService.getUsers()).thenReturn(futureUser);
+		List<User> users = new ArrayList<>();
+		users.add(user);
+		when(jsonPlaceholderService.getUsers()).thenReturn(users);
 
 		List<Post> posts = new ArrayList<>();
 		posts.add(createPost(USER_ID, 1, "Title 1"));
 		posts.add(createPost(USER_ID, 2, "Title 2"));
 		posts.add(createPost(USER_ID, 3, "Title 3"));
-		Future<List<Post>> futurePosts =  new AsyncResult<>(posts);
-		when(jsonPlaceholderService.getPostsByUserId(USER_ID)).thenReturn(futurePosts);
 
-		List<User> users = controller.get();
-		User result = users.get(0);
+		when(jsonPlaceholderService.getPostsByUserId(USER_ID)).thenReturn(posts);
+
+		List<User> users2 = controller.get();
+		User result = users2.get(0);
 		assertThat(result.getId(), is(1));
 		assertThat(result.getName(), is("MS Dhoni"));
 		assertThat(result.getEmail(), is("dhoni@gmail.com"));
@@ -67,13 +65,12 @@ public class AdminControllerTest {
 	public void testGetButUserHasNoPosts() throws Exception {
 
 		User user = createUser(USER_ID, "MS Dhoni", "dhoni@gmail.com");
-		Future<List<User>> futureUser = new AsyncResult<>(new ArrayList<>());
-		futureUser.get().add(user);
-		when(jsonPlaceholderService.getUsers()).thenReturn(futureUser);
+		List<User> users = new ArrayList<>();
+		users.add(user);
+		when(jsonPlaceholderService.getUsers()).thenReturn(users);
 
 		List<Post> posts = Collections.emptyList();
-		Future<List<Post>> futurePosts = new AsyncResult<>(posts);
-		when(jsonPlaceholderService.getPostsByUserId(USER_ID)).thenReturn(futurePosts);
+		when(jsonPlaceholderService.getPostsByUserId(USER_ID)).thenReturn(posts);
 
 		List<User> results = controller.get();
 		User result = results.get(0);
@@ -85,8 +82,8 @@ public class AdminControllerTest {
 
 	@Test(expected = UserNotFoundException.class)
 	public void testGetButUserNotFound() throws Exception {
-		Future<List<User>> futureUser = new AsyncResult<>(new ArrayList<>());
-		when(jsonPlaceholderService.getUsers()).thenReturn(futureUser);
+		List<User> users = new ArrayList<>();
+		when(jsonPlaceholderService.getUsers()).thenReturn(users);
 		controller.get();
 	}
 

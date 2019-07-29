@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableAsync;
 
-@SpringBootApplication//(exclude = { SecurityAutoConfiguration.class })
+@SpringBootApplication
 @EnableAsync
 @ComponentScan("com.api")
 public class ApiUserControllerApplication {

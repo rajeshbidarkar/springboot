@@ -9,6 +9,12 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
+/**
+ * Interface for rest request with relative path
+ * 
+ * @author
+ *
+ */
 public interface IPlaceHolderJson {
 
 	@GET("/users")
