@@ -15,6 +15,12 @@ import com.api.exceptionhandler.UserNotFoundException;
 import com.api.placeholder.JsonPlaceholderService;
 
 /**
+ * Requirement :- Consume two API 1. which will return users list and 2. Returns
+ * user posts. By consuming these two API return users and its posts from on
+ * Rest service.
+ * 
+ * Implement basic authentication.
+ * 
  * Admin controller which will act as main controller call
  * 
  * @author
